@@ -3,6 +3,7 @@
 
 const {CostModel} = require("../models/cost-model");
 const {UserModel} = require("../models/user-model");
+const {cache} = require("./cache");
 
 
 const randomId = () => Math.random().toString(36).slice(2); // generates a random string to use as cost id
@@ -29,6 +30,11 @@ async function addCost(req, res) {
         // creating a new cost entry with provided data and generated id
         const addedCost = await CostModel.create({...cost, id: randomId() });
 
+        const cacheKey  = cost.year.toString() + cost.month.toString() + cost.user_id;
+        console.log(cacheKey)
+        if(cache.has(cacheKey)) {
+            cache.delete(cacheKey)
+        }
         res.json(addedCost);
     } catch (e){
         res.json(e)

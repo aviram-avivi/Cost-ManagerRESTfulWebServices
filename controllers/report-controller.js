@@ -2,12 +2,21 @@
 //Meni Banin 206058612
 
 const {CostModel} = require("../models/cost-model");
+const {cache} = require("./cache");
+
+
 
 // function to get cost report
-async function getReport(req, res, next) {
+async function getReport(req, res) {
 
     // destructuring query parameters from the request
     const { year, month, userId } = req.query;
+
+    const cacheKey  = year+month+userId;
+    console.log(cacheKey)
+    if(cache.has(cacheKey)){
+        return res.json(cache.get(cacheKey))
+    }
 
     // finding all costs that match provided year, month, and user id
     const costs = await CostModel.find({user_id: userId, year: year, month: month});
@@ -31,6 +40,7 @@ async function getReport(req, res, next) {
         })
     }
 
+    cache.set(cacheKey,result)
     res.json(result)
 }
 
