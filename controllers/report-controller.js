@@ -12,6 +12,7 @@ async function getReport(req, res) {
     // destructuring query parameters from the request
     const { year, month, userId } = req.query;
 
+    // This creates a cache key based on the year, month, and user id
     const cacheKey  = year+month+userId;
     console.log(cacheKey)
     if(cache.has(cacheKey)){
@@ -40,6 +41,7 @@ async function getReport(req, res) {
         })
     }
 
+    // This caches the result
     cache.set(cacheKey,result)
     res.json(result)
 }

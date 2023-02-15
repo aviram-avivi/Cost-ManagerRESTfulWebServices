@@ -30,8 +30,10 @@ async function addCost(req, res) {
         // creating a new cost entry with provided data and generated id
         const addedCost = await CostModel.create({...cost, id: randomId() });
 
+        // This creates a cache key based on the year, month, and user id of the cost.
         const cacheKey  = cost.year.toString() + cost.month.toString() + cost.user_id;
         console.log(cacheKey)
+        // This deletes the cache entry for the cost if it exists.
         if(cache.has(cacheKey)) {
             cache.delete(cacheKey)
         }
