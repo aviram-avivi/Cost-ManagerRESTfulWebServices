@@ -23,11 +23,15 @@ const costSchema = new mongoose.Schema({
     },
     month: {
         type: Number,
-        required: true
+        required: true,
+        max: 12,
+        min: 1
     },
     day: {
         type: Number,
-        required: true
+        required: true,
+        max: 31,
+        min: 1
     },
     sum: {
         type: Number,
