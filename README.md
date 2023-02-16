@@ -2,6 +2,8 @@
 
 The Daily Cost Manager is a web application that allows users to manage their daily costs by adding new cost items and generating reports. The application is built with a RESTful architecture, and its server-side is developed using Express.js in JavaScript.
 
+This app is a project developed as part of a computer science course.
+
 ## Database
 
 The data is stored in a MongoDB database, using the MongoDB Atlas service. The database is organized in collections for users and costs. The costs can be categorized into food, health, housing, sport, education, transportation, and other. The users have an id, first name, last name, and birthday, while the costs have a user id, year, month, day, description, category, and sum.
